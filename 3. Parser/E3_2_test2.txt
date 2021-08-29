@@ -1,0 +1,11 @@
+/* massimo di tre numeri */
+
+read(i);
+
+read(y_2);
+read(Z_0);
+
+cond when (> x y) do cond when(> x z)	// COMMENTO pr@va _.1^ $
+	do print(x) else print(z)
+else
+cond when (> y z) do print(y) else print(z)
