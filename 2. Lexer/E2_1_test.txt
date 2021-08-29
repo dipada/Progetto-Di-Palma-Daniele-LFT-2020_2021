@@ -1,0 +1,11 @@
+L
+80 +-50
+
+0 43 
+0 + 10 
+Prova55IDENTIFICATOREd123
+1231213 + 0 + 
+<><=>====<>
+COND  WHEN THEN ELSE do while seq print read 
+|| &&
+! ( ) { } + - * / = ;
