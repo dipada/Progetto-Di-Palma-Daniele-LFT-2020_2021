@@ -1,0 +1,206 @@
+/*
+
+read(x);
+print(+ (x 1))
+
+*/
+
+
+
+
+
+/*
+
+= x 10;
+= y 20;
+= z 30;
+print( + (x *(y z))); // atteso 610
+print( * (x +(y z 3))); // atteso 530
+
+*/
+
+
+
+/*
+
+print( +( 2 3 *( 4 5) ) ); 					// ris 25
+print( *( 2 +( 3 4 5 ) )); 					// ris 24
+print( *( +(5 5 2 3) 4 5));  				// ris 300
+print( * (2 +(3 2))); 						// ris 10
+print( + (2 3 4 5 *( 3 4 5 6 )  7 4) ); 	// ris 385
+print( +(2 3 4 5 6 7 8 9 10)); 				// 54
+print( *( 2 3 4 5 6 7));					// 5040
+print( * (2 3)); 							// ris 6
+print( /-10 5 5 ); 							// ris 1
+print( +(3 *(2 5 2 7 3) 6 5 2 3 9 8)); 		// ris 456
+print( *(2 3 4 5 6 7 8 9) );				// valore 362880
+
+*/
+
+
+
+
+
+/*
+
+print( *(2 3 4)); 		// ha valore 24
+print( -*(2 4) 3); 		// ha valore 5
+print( +(2 - 7 3)); 	// ha valore 6
+print(+(/ 10 2 3)); 	// ha valore 8
+print(+(5 - 7 3 10)); 	//ha valore 19
+
+*/
+
+
+
+/*
+
+read(x);
+
+cond when( < x 2 ) do print(1) when( < x 3 ) do print(2) when( < x 4 ) do print(4)
+
+else print( 3 );
+
+*/
+
+
+
+
+/*
+
+read(x);
+read(y);
+
+// dando 5 e 6 il risultato è 6
+cond when(> x y) do print(x) else print(y);
+
+// risultato: 4 3 2 1 0
+while( > x 0 ) {
+	= x - x 1;
+	print(x)
+}
+
+*/
+
+
+/*
+
+read(x_1);
+read(_y);
+read(_Z1__2);
+
+// dando 6, 7, 21 risultato -> 21
+cond when( > x_1 _y ) do
+				cond when( > x_1 _Z1__2 ) do print(x_1) else print(_Z1__2)
+else 
+				cond when( > _y _Z1__2) do print(_y) else print(_Z1__2)
+
+*/
+
+/*
+
+= x *( 3 2 5); 
+print(x); // ris 30
+
+*/
+
+/*
+
+// differenza tra due numeri (n maggiore - n minore)
+// dando 5 e 6 risultato atteso è 1 (ramo else 6 - 5)
+read(a);
+read(b);
+	while (<> a b){
+		cond when (> a b) do = a - a b
+		else = b - b a
+	};
+print(a)
+
+*/
+
+/*
+
+// fatt
+read(n);
+= i 2;
+= f 1;
+	while (<= i n){
+		= f *(f i);
+		= i +(i 1)
+	};
+print(f)
+
+*/
+
+
+
+/*
+
+// Se > 20 e <= 30 oppure è < 10 stampa x+100 altrimenti stampa x
+// Dando 9 mi aspetto 109 
+// Dando 35 mi aspetto 35
+// Dando 30 mi aspetto 130
+// Dando 31 mi aspetto 31
+read(x);
+cond
+    when ( || (< x 10) ( && (> x 20) (! > x 30) ) ) do print(+(x 100))
+    else print(x)
+
+*/
+
+
+/*
+
+read(x);
+cond when ( && ( > x 0 ) ( && ( >= x 10) ( >= x 19 ) ) ) do print(1) else print(2);
+
+*/
+
+
+/*
+
+// Se diverso da 5 stampa 1 altrimenti 2
+read(x);
+cond when( ! == x 5) do print(1) else print(2)
+
+*/
+
+/*
+
+// Se X è diverso da 5 ed è maggiore di 0 
+// decrementa e stampa la variabile fino a 0 
+// altrimenti stampa 2
+read(x);
+cond when( && ( ! == x 5 ) ( ! <= x 0 )) do {
+	while ( > x 0 ){
+		= x - x 1 ;
+		print(x);
+	}
+} 
+
+else print(2);
+
+*/
+
+/*
+
+read(x);
+cond when ( ! < x 10) do print(1) else print(2);
+
+*/
+
+/*
+
+// compreso fra 10 e 4 stampa 1 
+read(x);
+cond when ( &&( <= x 10 ) ( >= x 4 )) do print(1) else print(2);
+
+*/
+
+/*
+
+// se è 10 o 4 stampa 1
+read(x);
+cond when ( || ( == x 10 ) ( == x 4 )) do print(1) else print(2);
+
+*/
