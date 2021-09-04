@@ -1,0 +1,5 @@
+(1) - Compilare Translator.java
+(2) - Utilizzare Jasmine per convertire il codice in file .class usando il comando:
+	java -jar jasmin.jar "file.j"
+(3) - avviare il programma usando:
+	java Output.j
