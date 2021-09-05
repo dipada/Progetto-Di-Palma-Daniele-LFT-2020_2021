@@ -16,9 +16,9 @@ public class Valutatore {
     private Token look;
 
     public Valutatore(Lexer l, BufferedReader br) { 
-	lex = l; 
-	pbr = br;
-	move(); 
+	    lex = l; 
+	    pbr = br;
+	    move(); 
     }
    
     /**
@@ -39,7 +39,7 @@ public class Valutatore {
      * 
     */
     void error(String s) {
-	    throw new Error("near line " + lex.line + ": " + s);
+	    throw new Error("near line " + Lexer.line + ": " + s);
     }
 
     /**
@@ -198,7 +198,7 @@ public class Valutatore {
     
     private int fact() { 
         
-        int expr_val, n;
+        int expr_val;
         
         switch(look.tag){
 
