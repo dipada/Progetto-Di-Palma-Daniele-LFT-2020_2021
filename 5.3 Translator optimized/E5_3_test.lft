@@ -1,0 +1,147 @@
+/*
+
+read(x);
+print(+ (x 1));
+
+*/
+
+
+/*
+
+= x 10;
+= y 20;
+= z 30;
+print( + (x *(y z))); 							// atteso 610
+print( * (x +(y z 3))); 						// atteso 530
+
+*/
+
+/*
+
+print( +( 2 3 *( 4 5) ) ); 						// ris 25
+print( *( 2 +( 3 4 5 ) )); 						// ris 24
+print( *( +(5 5 2 3) 4 5));  					// ris 300
+print( * (2 +(3 2))); 							// ris 10
+print( + (2 3 4 5 *( 3 4 5 6 )  7 4) ); 		// ris 385
+print( +(2 3 4 5 6 7 8 9 10)); 					// 54
+print( *( 2 3 4 5 6 7));						// 5040
+print( * (2 3)); 								// ris 6
+print( /-10 5 5 ); 								// ris 1
+print( +(3 *(2 5 2 7 3) 6 5 2 3 9 8)); 			// ris 456
+print( *(2 3 4 5 6 7 8 9) );					// valore 362880
+
+*/
+
+
+/*
+
+print( *(2 3 4)); 								// ha valore 24
+print( -*(2 4) 3); 								// ha valore 5
+print( +(2 - 7 3)); 							// ha valore 6
+print(+(/ 10 2 3)); 							// ha valore 8
+print(+(5 - 7 3 10)); 							// ha valore 19
+
+*/
+
+
+/*
+
+read(x);
+
+cond when( < x 2 ) do print(1) when( < x 3 ) do print(2) when( < x 4 ) do print(4)
+
+else print( 3 );
+
+*/
+
+
+/*
+
+read(x);
+read(y);
+
+// dando 5 e 6 il risultato è 6
+cond when(> x y) do print(x) else print(y);
+
+// risultato: 4 3 2 1 0
+while( > x 0 ) {
+	= x - x 1;
+	print(x)
+}
+
+*/
+
+
+
+
+read(x);
+read(y);
+read(z);
+
+// dando 6, 7, 21 risultato -> 21
+cond when( > x y ) do
+				cond when( > x z) do print(x) else print(z)
+else 
+				cond when( > y z) do print(y) else print(z)
+
+
+
+
+/*
+
+= x *( 3 2 5); 
+print(x); 				// ris 30
+
+*/
+
+
+/*
+
+// differenza tra due numeri (n maggiore - n minore)
+// dando 5 e 6 risultato atteso è 1 (ramo else 6 - 5)
+// dando 10 e 6 risultato atteso è 2
+read(a);
+read(b);
+	while (<> a b){
+		cond when (> a b) do = a - a b
+		else = b - b a
+	};
+print(a)
+
+*/
+
+
+/*
+
+read(n);
+= i 2;
+= f 1;
+	while (<= i n){
+		= f *(f i);
+		= i +(i 1)
+	};
+print(f)
+
+*/
+
+
+/*
+
+// stampa da 0 a 9
+= x 0;
+while ( < x 10) {
+	print(x);
+	= x +( x 1);
+}
+
+*/
+
+
+/*
+
+read(x);
+cond when( < x 3) do print (5) else print(6);
+
+*/
+
+

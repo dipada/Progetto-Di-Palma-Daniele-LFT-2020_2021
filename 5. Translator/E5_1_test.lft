@@ -6,47 +6,43 @@ print(+ (x 1))
 */
 
 
-
-
 /*
 
 = x 10;
 = y 20;
 = z 30;
-print( + (x *(y z))); // atteso 610
-print( * (x +(y z 3))); // atteso 530
+print( + (x *(y z))); 						// atteso 610
+print( * (x +(y z 3))); 					// atteso 530
 
 */
 
 
 /*
 
-print( +( 2 3 *( 4 5) ) ); // ris 25
-print( *( 2 +( 3 4 5 ) )); // ris 24
-print( *( +(5 5 2 3) 4 5));  // ris 300
-print( * (2 +(3 2))); // ris 10
-print( + (2 3 4 5 *( 3 4 5 6 )  7 4) ); // ris 385
-print( +(2 3 4 5 6 7 8 9 10)); // 54
-print( *( 2 3 4 5 6 7));	// 5040
-print( * (2 3)); // ris 6
-print( /-10 5 5 ); // ris 1
-print( +(3 *(2 5 2 7 3) 6 5 2 3 9 8)); // ris 456
-print( *(2 3 4 5 6 7 8 9) );		// valore 362880
+print( +( 2 3 *( 4 5) ) ); 					// ris 25
+print( *( 2 +( 3 4 5 ) )); 					// ris 24
+print( *( +(5 5 2 3) 4 5));  				// ris 300
+print( * (2 +(3 2))); 						// ris 10	
+print( + (2 3 4 5 *( 3 4 5 6 )  7 4) ); 	// ris 385
+print( +(2 3 4 5 6 7 8 9 10)); 				// 54
+print( *( 2 3 4 5 6 7));					// 5040
+print( * (2 3)); 							// ris 6
+print( /-10 5 5 ); 							// ris 1
+print( +(3 *(2 5 2 7 3) 6 5 2 3 9 8)); 		// ris 456
+print( *(2 3 4 5 6 7 8 9) );				// valore 362880
 
 */
-
 
 
 /*
 
-print( *(2 3 4)); 		// ha valore 24
-print( -*(2 4) 3); 		// ha valore 5
-print( +(2 - 7 3)); 	// ha valore 6
-print(+(/ 10 2 3)); 	// ha valore 8
-print(+(5 - 7 3 10)); 	//ha valore 19
+print( *(2 3 4)); 							// ha valore 24
+print( -*(2 4) 3); 							// ha valore 5
+print( +(2 - 7 3)); 						// ha valore 6
+print(+(/ 10 2 3)); 						// ha valore 8
+print(+(5 - 7 3 10)); 						//ha valore 19
 
 */
-
 
 
 /*
@@ -60,14 +56,13 @@ else print( 3 );
 */
 
 
-
-
 /*
 
 read(x);
 read(y);
 
 // dando 5 e 6 il risultato è 6
+// stampa il maggiore e poi decrementa e stampa x fino a 0
 cond when(> x y) do print(x) else print(y);
 
 // risultato: 4 3 2 1 0
@@ -77,6 +72,7 @@ while( > x 0 ) {
 }
 
 */
+
 
 /*
 
@@ -92,6 +88,7 @@ else
 
 */
 
+
 /*
 
 = x *( 3 2 5); 
@@ -99,10 +96,12 @@ print(x); // ris 30
 
 */
 
+
 /*
 
-// differenza tra due numeri (n maggiore - n minore)
+// differenza tra due numeri (n maggiore - n minore) finchè non sono uguali
 // dando 5 e 6 risultato atteso è 1 (ramo else 6 - 5)
+// dando 10 e 6 il risultato atteso è 2
 read(a);
 read(b);
 	while (<> a b){
@@ -112,6 +111,7 @@ read(b);
 print(a)
 
 */
+
 
 /*
 
@@ -125,6 +125,7 @@ read(n);
 print(f)
 
 */
+
 
 /*
 

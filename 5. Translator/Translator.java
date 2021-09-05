@@ -187,7 +187,6 @@ public class Translator {
             // GUIDA( S -> cond WL else S ) = { cond }
             case Tag.COND:
                 match(Tag.COND);
-                int l_true = code.newLabel();
                 int l_false = code.newLabel();
 
                 whenlist(l_next, l_false);
@@ -282,7 +281,6 @@ public class Translator {
     }
 
     private void bexpr(int l_Btrue, int l_Bfalse){
-        int n = 0;
         switch(look.tag){
 
             case Tag.RELOP:   // GUIDA( B -> RELOP E E ) = { RELOP }
@@ -419,7 +417,6 @@ public class Translator {
             case '/':
             case Tag.NUM:
             case Tag.ID:
-                int l_nexte = code.newLabel();
                 n = expr(n);                 
                 n = exprlistp(n); 
                 break;
@@ -440,7 +437,6 @@ public class Translator {
             case '/':
             case Tag.NUM:
             case Tag.ID:
-                int l_nexte = code.newLabel();
                 n = expr(n);
                 n = exprlistp(n);
                 break;

@@ -1,9 +1,11 @@
 import java.io.*;
 
 /**
- * Esercitazione 5.2 LFT 2020/2021
- * Classe implementante un traduttore del linguaggio descritto nella grammatica 3.2 con aggiunta di connettivi logici 
+ * Esercitazione 5.3 LFT 2020/2021
+ * Classe implementante un traduttore del linguaggio descritto nella grammatica 3.2
  * Il traduttore traduce in linguaggio assembler Jasmin.
+ * 
+ * Riduzione del codice di una istruzione goto nelle produzioni B -> RELOP E E 
  * 
  * @author Daniele Di Palma
  *
@@ -187,10 +189,10 @@ public class Translator {
             // GUIDA( S -> cond WL else S ) = { cond }
             case Tag.COND:
                 match(Tag.COND);
-                
                 int l_false = code.newLabel();
 
-                whenlist(l_next, l_false);
+                //whenlist(l_next, l_false);
+                whenlist(l_next);
                 match(Tag.ELSE);
                 code.emitLabel(l_false);
                 stat(l_next);
@@ -202,13 +204,11 @@ public class Translator {
                 match(Tag.WHILE);
                 match(Token.lpt.tag);
                 int l_loop = code.newLabel();
-                int l_e = code.newLabel();
 
                 code.emitLabel(l_loop);
-                bexpr(l_e, l_next);
+                bexpr(l_next);
 
                 match(Token.rpt.tag);
-                code.emitLabel(l_e);
                 stat(l_loop);
                 
                 code.emit(OpCode.GOto, l_loop);
@@ -223,13 +223,13 @@ public class Translator {
         }
     }
 
-    private void whenlist(int l_next, int l_false){
+    private void whenlist(int l_next){
         switch(look.tag){
 
             // GUIDA(WL -> WI WLP) = { when }
             case Tag.WHEN:   
-                whenitem(l_next, l_false);
-                whenlistp(l_next, l_false);
+                whenitem(l_next);
+                whenlistp(l_next);
                 break;
             
             default:
@@ -237,13 +237,13 @@ public class Translator {
         }
     }
 
-    private void whenlistp(int l_next, int l_false){
+    private void whenlistp(int l_next){
 
         switch(look.tag){
 
             case Tag.WHEN:          // GUIDA( WLP -> WI WLP ) = { when }
-                whenitem(l_next, l_false);
-                whenlistp(l_next, l_false);
+                whenitem(l_next);
+                whenlistp(l_next);
                 break;
 
             case Tag.ELSE:          // GUIDA( WLP -> EPS ) = { else }
@@ -254,21 +254,22 @@ public class Translator {
         }
     }
 
-    private void whenitem(int l_next, int l_false){
+    private void whenitem(int l_next){
         
         switch(look.tag){
 
             case Tag.WHEN:          // GUIDA( WI -> when ( B ) do S ) = { when }
                 match(Tag.WHEN);
                 match(Token.lpt.tag);
-                int l_Btrue = code.newLabel();
+
                 int l_Bfalse = code.newLabel();
                 
-                bexpr(l_Btrue, l_Bfalse);
+                // passo solo il falso
+                bexpr(l_Bfalse);
                 
                 match(Token.rpt.tag);
                 match(Tag.DO);
-                code.emitLabel(l_Btrue);
+        
                 stat(l_next);
                 
                 code.emit(OpCode.GOto, l_next);
@@ -280,91 +281,52 @@ public class Translator {
         }
     }
 
-    private void bexpr(int l_Btrue, int l_Bfalse){
+    private void bexpr(int l_Bfalse){
         
         switch(look.tag){
 
             case Tag.RELOP:   // GUIDA( B -> RELOP E E ) = { RELOP }
+                // Per ridurre di un'istruzione goto il codice finale 
+                // dopo aver fatto il match di un determinato simbolo, testo il suo complementare
+                // in questo modo l'unica label necessaria sarà quella FALSE
                 if(((Word)look).lexeme == "=="){
                     match(Word.eq.tag);
                     expr(0);    
                     expr(0);    
-                    code.emit(OpCode.if_icmpeq, l_Btrue);
-			        code.emit(OpCode.GOto, l_Bfalse);
+                    code.emit(OpCode.if_icmpne, l_Bfalse);
                     break;
                 }else if(((Word)look).lexeme == "<>"){
                     match(Word.ne.tag);
                     expr(0);    
                     expr(0);    
-                    code.emit(OpCode.if_icmpne, l_Btrue);
-			        code.emit(OpCode.GOto, l_Bfalse);
+                    code.emit(OpCode.if_icmpeq, l_Bfalse);
                     break;
                 }else if(((Word)look).lexeme == "<="){
                     match(Word.le.tag);
                     expr(0);    
                     expr(0);   
-                    code.emit(OpCode.if_icmple, l_Btrue);
-			        code.emit(OpCode.GOto, l_Bfalse);
+                    code.emit(OpCode.if_icmpgt, l_Bfalse);
                     break;
                 }else if(((Word)look).lexeme == ">="){
                     match(Word.ge.tag);
                     expr(0);    
                     expr(0);    
-                    code.emit(OpCode.if_icmpge, l_Btrue);
-			        code.emit(OpCode.GOto, l_Bfalse);
+                    code.emit(OpCode.if_icmplt, l_Bfalse);
                     break;
                 }else if(((Word)look).lexeme == "<"){
                     match(Word.lt.tag);
                     expr(0);   
                     expr(0);   
-                    code.emit(OpCode.if_icmplt, l_Btrue);
-			        code.emit(OpCode.GOto, l_Bfalse);
+                    code.emit(OpCode.if_icmpge, l_Bfalse);
                     break;
                 }else if(((Word)look).lexeme == ">"){
                     match(Word.gt.tag);
                     expr(0);    
                     expr(0);    
-                    code.emit(OpCode.if_icmpgt, l_Btrue);
-			        code.emit(OpCode.GOto, l_Bfalse);
+                    code.emit(OpCode.if_icmple, l_Bfalse);
                     break;
                 }
-                break;
-                
-            case Tag.OR:{    // GUIDA( B -> || ( B ) ( B ) )
-                match(Tag.OR);
 
-                match(Token.lpt.tag);
-                int l_false = code.newLabel();
-                bexpr(l_Btrue, l_false);
-                match(Token.rpt.tag);
-                code.emitLabel(l_false);
-                
-                match(Token.lpt.tag);
-                bexpr(l_Btrue, l_Bfalse);
-                match(Token.rpt.tag);
-
-                
-                break;
-            }
-
-            case Tag.AND:   // GUIDA( B -> && ( B ) ( B ) )
-                match(Tag.AND);
-                
-                match(Token.lpt.tag);
-                int l_true = code.newLabel();
-                bexpr(l_true, l_Bfalse);
-                match(Token.rpt.tag);
-                code.emitLabel(l_true);
-
-                match(Token.lpt.tag);
-                bexpr(l_Btrue, l_Bfalse);
-                match(Token.rpt.tag);
-                break;
-            
-            case '!' :      // GUIDA ( B -> ! B )
-                match(Token.not.tag);
-                bexpr(l_Bfalse , l_Btrue);
-                break;
             default:
                 error("[bexpr]>> syntax error");
         }
@@ -489,7 +451,7 @@ public class Translator {
 
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "E5_2_test.lft"; // il percorso del file da leggere
+        String path = "E5_3_test.lft"; // il percorso del file da leggere
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Translator translator = new Translator(lex, br);

@@ -6,19 +6,15 @@ print(+ (x 1))
 */
 
 
-
-
-
 /*
 
 = x 10;
 = y 20;
 = z 30;
-print( + (x *(y z))); // atteso 610
-print( * (x +(y z 3))); // atteso 530
+print( + (x *(y z))); 						// atteso 610
+print( * (x +(y z 3))); 					// atteso 530
 
 */
-
 
 
 /*
@@ -38,19 +34,15 @@ print( *(2 3 4 5 6 7 8 9) );				// valore 362880
 */
 
 
-
-
-
 /*
 
-print( *(2 3 4)); 		// ha valore 24
-print( -*(2 4) 3); 		// ha valore 5
-print( +(2 - 7 3)); 	// ha valore 6
-print(+(/ 10 2 3)); 	// ha valore 8
-print(+(5 - 7 3 10)); 	//ha valore 19
+print( *(2 3 4)); 							// ha valore 24
+print( -*(2 4) 3); 							// ha valore 5
+print( +(2 - 7 3)); 						// ha valore 6
+print(+(/ 10 2 3)); 						// ha valore 8
+print(+(5 - 7 3 10)); 						// ha valore 19
 
 */
-
 
 
 /*
@@ -62,8 +54,6 @@ cond when( < x 2 ) do print(1) when( < x 3 ) do print(2) when( < x 4 ) do print(
 else print( 3 );
 
 */
-
-
 
 
 /*
@@ -97,12 +87,14 @@ else
 
 */
 
+
 /*
 
 = x *( 3 2 5); 
 print(x); // ris 30
 
 */
+
 
 /*
 
@@ -118,6 +110,7 @@ print(a)
 
 */
 
+
 /*
 
 // fatt
@@ -131,7 +124,6 @@ read(n);
 print(f)
 
 */
-
 
 
 /*
@@ -165,6 +157,7 @@ cond when( ! == x 5) do print(1) else print(2)
 
 */
 
+
 /*
 
 // Se X è diverso da 5 ed è maggiore di 0 
@@ -182,12 +175,14 @@ else print(2);
 
 */
 
+
 /*
 
 read(x);
 cond when ( ! < x 10) do print(1) else print(2);
 
 */
+
 
 /*
 
@@ -196,6 +191,7 @@ read(x);
 cond when ( &&( <= x 10 ) ( >= x 4 )) do print(1) else print(2);
 
 */
+
 
 /*
 
