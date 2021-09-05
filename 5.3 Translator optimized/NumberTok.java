@@ -6,7 +6,7 @@
 
 public class NumberTok extends Token {
 
-	public static int value;
+	public int value;
 
 	public NumberTok(int v){
 		super(Tag.NUM);		// Inizializza il campo tag della superclasse

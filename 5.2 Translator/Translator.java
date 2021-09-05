@@ -41,7 +41,7 @@ public class Translator {
      * 
     */
     void error(String s) {
-	    throw new Error("near line " + lex.line + ": " + s);
+	    throw new Error("near line " + Lexer.line + ": " + s);
     }
 
     /**
@@ -113,7 +113,7 @@ public class Translator {
         }
     }
 
-    private void statlistp(/*int l_next*/){
+    private void statlistp(){
         
         switch(look.tag){
 

@@ -16,6 +16,7 @@ print( * (x +(y z 3))); 						// atteso 530
 
 */
 
+
 /*
 
 print( +( 2 3 *( 4 5) ) ); 						// ris 25
@@ -72,7 +73,7 @@ while( > x 0 ) {
 */
 
 
-
+/*
 
 read(x);
 read(y);
@@ -84,7 +85,7 @@ cond when( > x y ) do
 else 
 				cond when( > y z) do print(y) else print(z)
 
-
+*/
 
 
 /*

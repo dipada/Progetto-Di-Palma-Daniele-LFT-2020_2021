@@ -1,7 +1,7 @@
 /*
 
 read(x);
-print(+ (x 1))
+print(+ (x 1));
 
 */
 
@@ -15,7 +15,6 @@ print( + (x *(y z))); 						// atteso 610
 print( * (x +(y z 3))); 					// atteso 530
 
 */
-
 
 /*
 
@@ -100,6 +99,7 @@ print(x); // ris 30
 
 // differenza tra due numeri (n maggiore - n minore)
 // dando 5 e 6 risultato atteso è 1 (ramo else 6 - 5)
+// dando 10 e 6 ris atteso 2
 read(a);
 read(b);
 	while (<> a b){
@@ -143,6 +143,7 @@ cond
 
 /*
 
+// se >= 19 stampa 1 altrimenti 2
 read(x);
 cond when ( && ( > x 0 ) ( && ( >= x 10) ( >= x 19 ) ) ) do print(1) else print(2);
 

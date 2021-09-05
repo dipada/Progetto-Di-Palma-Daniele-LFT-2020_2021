@@ -41,7 +41,7 @@ public class Translator {
      * 
     */
     void error(String s) {
-	    throw new Error("near line " + lex.line + ": " + s);
+	    throw new Error("near line " + Lexer.line + ": " + s);
     }
 
     /**
@@ -113,12 +113,11 @@ public class Translator {
         }
     }
 
-    private void statlistp(/*int l_next*/){
+    private void statlistp(){
         
         switch(look.tag){
 
-            // GUIDA( SLP -> ; S SLP ) = { ; }
-            case ';':
+            case ';':               // GUIDA( SLP -> ; S SLP ) = { ; }
                 int lnext_s = code.newLabel();   
                 match(Token.semicolon.tag);
                 stat(lnext_s);
@@ -126,8 +125,7 @@ public class Translator {
                 statlistp();
                 break;
             
-            // GUIDA( SLP -> EPS )  = { 'EOF' , '}' }
-            case Tag.EOF:           
+            case Tag.EOF:           // GUIDA( SLP -> EPS )  = { 'EOF' , '}' }
             case '}':
                 break;
 
@@ -140,8 +138,7 @@ public class Translator {
         
         switch(look.tag) {
             
-            // GUIDA( S -> = ID E ) = { = }
-            case '=':
+            case '=':               // GUIDA( S -> = ID E ) = { = }
                 match(Token.assign.tag);
                 if(look.tag == Tag.ID){
                     int id_addr = st.lookupAddress(((Word)look).lexeme);
@@ -157,8 +154,7 @@ public class Translator {
                 }
                 break;
 
-            // GUIDA( S -> print(EL) ) = { print }
-            case Tag.PRINT:
+            case Tag.PRINT:         // GUIDA( S -> print(EL) ) = { print }
                 match(Tag.PRINT);
                 match(Token.lpt.tag);
                 exprlist(0);
@@ -166,8 +162,7 @@ public class Translator {
                 code.emit(OpCode.invokestatic, 1);
                 break;
             
-            // GUIDA( S -> read(ID) ) = { read }
-            case Tag.READ:
+            case Tag.READ:          // GUIDA( S -> read(ID) ) = { read }
                 match(Tag.READ);
                 match('(');
                 if (look.tag==Tag.ID) {
@@ -184,8 +179,7 @@ public class Translator {
                     error("Error in grammar (stat) after read( with " + look);
                 break;
             
-            // GUIDA( S -> cond WL else S ) = { cond }
-            case Tag.COND:
+            case Tag.COND:          // GUIDA( S -> cond WL else S ) = { cond }
                 match(Tag.COND);
                 int l_false = code.newLabel();
 
@@ -196,8 +190,7 @@ public class Translator {
                 
                 break;         
             
-            // GUIDA(S -> while ( B ) S ) = { while }
-            case Tag.WHILE:
+            case Tag.WHILE:         // GUIDA(S -> while ( B ) S ) = { while }
                 match(Tag.WHILE);
                 match(Token.lpt.tag);
                 int l_loop = code.newLabel();
@@ -213,8 +206,7 @@ public class Translator {
                 code.emit(OpCode.GOto, l_loop);
                 break;
 
-            // GUIDA( S -> {SL} ) = { '{' }
-            case '{':
+            case '{':               // GUIDA( S -> {SL} ) = { '{' }
                 match(Token.lpg.tag);
                 statlist(l_next);
                 match(Token.rpg.tag);
@@ -225,10 +217,8 @@ public class Translator {
     private void whenlist(int l_next, int l_false){
         switch(look.tag){
 
-            // GUIDA(WL -> WI WLP) = { when }
-            case Tag.WHEN:   
+            case Tag.WHEN:          // GUIDA(WL -> WI WLP) = { when }
                 whenitem(l_next, l_false);
-                //code.emitLabel(l_nextwi);
                 whenlistp(l_next, l_false);
                 break;
             
@@ -283,7 +273,7 @@ public class Translator {
     private void bexpr(int l_Btrue, int l_Bfalse){
         switch(look.tag){
 
-            case Tag.RELOP:   // GUIDA( B -> RELOP E E ) = { RELOP }
+            case Tag.RELOP:         // GUIDA( B -> RELOP E E ) = { RELOP }
                 if(((Word)look).lexeme == "=="){
                     match(Word.eq.tag);
                     expr(0);    
@@ -411,7 +401,7 @@ public class Translator {
 
         switch(look.tag){
 
-            case '+':    // GUIDA( EL -> E ELP ) = { '+' , '-' , '*' , '/' , 'NUM' , 'ID' }
+            case '+':       // GUIDA( EL -> E ELP ) = { '+' , '-' , '*' , '/' , 'NUM' , 'ID' }
             case '-':
             case '*':
             case '/':
@@ -431,7 +421,7 @@ public class Translator {
 
         switch(look.tag){
 
-            case '+':    // GUIDA( ELP -> E ELP ) = { '+' , '-' , '*' , '/' , 'NUM' , 'ID' }
+            case '+':       // GUIDA( ELP -> E ELP ) = { '+' , '-' , '*' , '/' , 'NUM' , 'ID' }
             case '-':
             case '*':
             case '/':
@@ -441,7 +431,7 @@ public class Translator {
                 n = exprlistp(n);
                 break;
             
-            case ')':   // GUIDA( ELP -> EPS ) = { ')' }
+            case ')':       // GUIDA( ELP -> EPS ) = { ')' }
                 break;
 
             default:
