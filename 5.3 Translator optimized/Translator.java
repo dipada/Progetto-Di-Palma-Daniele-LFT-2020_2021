@@ -185,7 +185,7 @@ public class Translator {
                 match(Tag.COND);
                 int l_false = code.newLabel();
 
-                //whenlist(l_next, l_false);
+                
                 whenlist(l_next);
                 match(Tag.ELSE);
                 code.emitLabel(l_false);
