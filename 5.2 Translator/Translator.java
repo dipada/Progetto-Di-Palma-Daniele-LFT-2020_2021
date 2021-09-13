@@ -150,7 +150,7 @@ public class Translator {
                         st.insert(((Word)look).lexeme, count++);
                     }
                     match(Tag.ID);
-                    expr(0);
+                    expr(0, false);
                     code.emit(OpCode.istore, id_addr);
                 }else{
                     error("Error in grammar (stat) after = with " + look);
@@ -161,9 +161,9 @@ public class Translator {
             case Tag.PRINT:
                 match(Tag.PRINT);
                 match(Token.lpt.tag);
-                exprlist(0);
+                exprlist(0, true);
                 match(Token.rpt.tag);
-                code.emit(OpCode.invokestatic, 1);
+                
                 break;
             
             // GUIDA( S -> read(ID) ) = { read }
@@ -287,43 +287,43 @@ public class Translator {
             case Tag.RELOP:   // GUIDA( B -> RELOP E E ) = { RELOP }
                 if(((Word)look).lexeme == "=="){
                     match(Word.eq.tag);
-                    expr(0);    
-                    expr(0);    
+                    expr(0, false);    
+                    expr(0, false);    
                     code.emit(OpCode.if_icmpeq, l_Btrue);
 			        code.emit(OpCode.GOto, l_Bfalse);
                     break;
                 }else if(((Word)look).lexeme == "<>"){
                     match(Word.ne.tag);
-                    expr(0);    
-                    expr(0);    
+                    expr(0, false);    
+                    expr(0, false);     
                     code.emit(OpCode.if_icmpne, l_Btrue);
 			        code.emit(OpCode.GOto, l_Bfalse);
                     break;
                 }else if(((Word)look).lexeme == "<="){
                     match(Word.le.tag);
-                    expr(0);    
-                    expr(0);   
+                    expr(0, false);    
+                    expr(0, false);    
                     code.emit(OpCode.if_icmple, l_Btrue);
 			        code.emit(OpCode.GOto, l_Bfalse);
                     break;
                 }else if(((Word)look).lexeme == ">="){
                     match(Word.ge.tag);
-                    expr(0);    
-                    expr(0);    
+                    expr(0, false);    
+                    expr(0, false);     
                     code.emit(OpCode.if_icmpge, l_Btrue);
 			        code.emit(OpCode.GOto, l_Bfalse);
                     break;
                 }else if(((Word)look).lexeme == "<"){
                     match(Word.lt.tag);
-                    expr(0);   
-                    expr(0);   
+                    expr(0, false);    
+                    expr(0, false);     
                     code.emit(OpCode.if_icmplt, l_Btrue);
 			        code.emit(OpCode.GOto, l_Bfalse);
                     break;
                 }else if(((Word)look).lexeme == ">"){
                     match(Word.gt.tag);
-                    expr(0);    
-                    expr(0);    
+                    expr(0, false);    
+                    expr(0, false);        
                     code.emit(OpCode.if_icmpgt, l_Btrue);
 			        code.emit(OpCode.GOto, l_Bfalse);
                     break;
@@ -370,7 +370,7 @@ public class Translator {
         }
     }
 
-    private int expr(int n) {
+    private int expr(int n, boolean printList) {
         switch(look.tag) {
             
             case '+':  {             // GUIDA( E -> + ( EL ) ) = { + }
@@ -378,21 +378,28 @@ public class Translator {
                 match(Token.lpt.tag);                
                 int temp = n;
                 int nt = 1;
-                n = exprlist(nt) ;                 
+                n = exprlist(nt, false) ;                    
                 match(Token.rpt.tag);
 
                 for(int i = 0; i < n - 2 ; i++)
                     code.emit(OpCode.iadd);
+
+                if(printList)
+                    code.emit(OpCode.invokestatic, 1);
                        
                 n = temp + 1;
                 break;
         }
             case '-':               // GUIDA( E -> - E E) = { - }
                 match('-');
-                n = expr(n); 
-                n = expr(n); 
+                n = expr(n, false); 
+                n = expr(n, false); 
                 n -= 1;
                 code.emit(OpCode.isub);
+
+                if(printList)
+                    code.emit(OpCode.invokestatic, 1);
+
                 break;
             
             case '*':{               // GUIDA( E -> * ( EL ) ) = { * }
@@ -401,11 +408,14 @@ public class Translator {
 
                 int temp = n;
                 int nt = 1;
-                n = exprlist(nt);                 
+                n = exprlist(nt, false);                      
                 match(Token.rpt.tag);
                 
                 for(int i = 0; i < n - 2  ; i++)
                     code.emit(OpCode.imul);
+
+                if(printList)
+                    code.emit(OpCode.invokestatic, 1);
                 
                 n = temp + 1 ;
                 break;
@@ -413,15 +423,21 @@ public class Translator {
 
             case '/':               // GUIDA( E -> / E E ) = { / }
                 match(Token.div.tag);
-                n = expr(n); 
-                n = expr(n); 
+                n = expr(n, false); 
+                n = expr(n, false); 
                 n -= 1;
                 code.emit(OpCode.idiv);
+
+                if(printList)
+                    code.emit(OpCode.invokestatic, 1);
+
                 break;
 
             case Tag.NUM:           // GUIDA( E -> NUM )  = { NUM }
                 code.emit(OpCode.ldc, ((NumberTok)look).value);
                 match(Tag.NUM);
+                if(printList)
+                    code.emit(OpCode.invokestatic, 1);
                 ++n;
                 break;
 
@@ -433,6 +449,8 @@ public class Translator {
                     }else{
                         match(Tag.ID);
                         code.emit(OpCode.iload, id_addr);
+                        if(printList)
+                            code.emit(OpCode.invokestatic, 1);
                         ++n;
                     }
                 }
@@ -444,7 +462,7 @@ public class Translator {
         return n;
     }
 
-    private int exprlist(int n){
+    private int exprlist(int n, boolean printList){
 
         switch(look.tag){
 
@@ -454,8 +472,8 @@ public class Translator {
             case '/':
             case Tag.NUM:
             case Tag.ID:
-                n = expr(n);                 
-                n = exprlistp(n); 
+                n = expr(n, printList);                 
+                n = exprlistp(n, printList); 
                 break;
             
             default:
@@ -464,7 +482,7 @@ public class Translator {
         return n;
     }
 
-    private int exprlistp(int n){
+    private int exprlistp(int n, boolean printList){
 
         switch(look.tag){
 
@@ -474,8 +492,8 @@ public class Translator {
             case '/':
             case Tag.NUM:
             case Tag.ID:
-                n = expr(n);
-                n = exprlistp(n);
+                n = expr(n, printList);
+                n = exprlistp(n, printList);
                 break;
             
             case ')':   // GUIDA( ELP -> EPS ) = { ')' }
