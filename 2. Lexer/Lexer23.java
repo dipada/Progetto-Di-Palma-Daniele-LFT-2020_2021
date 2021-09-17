@@ -7,7 +7,6 @@
  */
 
 import java.io.*;
-import java.util.*;
 
 public class Lexer23 {
 
@@ -250,7 +249,7 @@ public class Lexer23 {
 
     public static void main(String[] args) {
         Lexer23 lex = new Lexer23();
-        String path = "C:\\Users\\dani9\\Desktop\\Progetto LFT\\2. Lexer\\E2_3_test.txt"; // il percorso del file da leggere
+        String path = "E2_3_test.txt"; // il percorso del file da leggere
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Token tok;
